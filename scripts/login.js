@@ -30,9 +30,10 @@ window.addEventListener('load', function(){
                     localStorage.setItem('token', data.jwt)
                     if(location.origin == "https://enzoferreira4152.github.io"){
                         console.log("Entró acá al if");
-                        location.replace('/To-Do-App/mis-tareas.html');
+                        location.href = '/To-Do-App/mis-tareas.html';
+                    }else{
+                        location.href = '/mis-tareas.html';
                     }
-                    location.href = '/mis-tareas.html';
                 }
                 else{
                     warning.classList.remove('ocult');
