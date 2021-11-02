@@ -29,8 +29,8 @@ window.addEventListener('load', function(){
                 if(data.jwt){
                     localStorage.setItem('token', data.jwt)
                     if(location.origin == "https://enzoferreira4152.github.io"){
-                        console.log("Entró al if");
-                        location.href = '/To-Do-App/mis-tareas.html';
+                        console.log("Entró acá");
+                        location.replace('/To-Do-App/mis-tareas.html');
                     }
                     location.href = '/mis-tareas.html';
                 }
