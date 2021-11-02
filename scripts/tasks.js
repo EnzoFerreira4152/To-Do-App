@@ -200,7 +200,11 @@ window.addEventListener('load', () =>{
     };
 
     function logOut(){
-        location.href = '/index.html'
+        if(location.origin == "https://enzoferreira4152.github.io"){
+            location.href = '/To-Do-App';
+        }else{
+            location.href = '/index.html'
+        }
         localStorage.clear();
     };
 
