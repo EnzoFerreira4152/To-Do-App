@@ -29,6 +29,7 @@ window.addEventListener('load', function(){
                 if(data.jwt){
                     localStorage.setItem('token', data.jwt)
                     if(location.origin == "https://enzoferreira4152.github.io"){
+                        console.log("entro acá");
                         location.href += 'mis-tareas.html';
                     }
                     location.href = '/mis-tareas.html';
