@@ -28,7 +28,7 @@ window.addEventListener('load', function(){
             .then(data =>{
                 if(data.jwt){
                     localStorage.setItem('token', data.jwt)
-                    location.href = '/mis-tareas.html';
+                    location.href = 'mis-tareas.html';
                 }
                 else{
                     warning.classList.remove('ocult');
