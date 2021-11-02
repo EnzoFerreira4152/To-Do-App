@@ -29,7 +29,7 @@ window.addEventListener('load', function(){
                 if(data.jwt){
                     localStorage.setItem('token', data.jwt)
                     if(location.origin == "https://enzoferreira4152.github.io"){
-                        location.href = 'To-Do-App/mis-tareas.html';
+                        location.href += 'mis-tareas.html';
                     }
                     location.href = '/mis-tareas.html';
                 }
