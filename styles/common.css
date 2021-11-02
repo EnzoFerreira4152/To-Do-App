@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+:root {
+  --primary: #2a5cff;
+  --secondary: #4b7bff;
+  --app-grey: #F2F2F2;
+  --bg-first-color: rgb(0, 82, 136);
+  --bg-second-color: rgb(0, 255, 235);
+  --bg-dark-color: rgb(0, 20, 40);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Lato', sans-serif;
+}
+
+body {
+  background-color: #F6F6F6;
+  min-height: 100vh;
+}
+
+button {
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}

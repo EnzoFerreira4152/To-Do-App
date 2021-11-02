@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToDo</title>
+
+  <!-- ---------------- estilos compartidos de login y signup ---------------- -->
+  <link rel="stylesheet" href="styles/ingreso.css">
+
+  <!-- ---------------------- logica aplicada en login ----------------------- -->
+  <script src="/scripts/utils.js"></script>
+  <script src="/scripts/login.js"></script>
+
+</head>
+
+<body>
+  <div class="left">
+    <img src="./assets/undraw_Developer_activity_re_39tg.svg" alt="banner-welcome">
+  </div>
+
+  <div class="right">
+    <form>
+      <div class="form-header">
+        <p>To-Do App</p>
+      </div>
+      <h1>Ingresar</h1>
+      <label>
+        Email:
+        <input id="inputEmail" type="text" placeholder="your@email">
+      </label>
+      <label>
+        Contraseña:
+        <div class="input-password">
+          <input id="inputPassword" type="password" placeholder="Password">
+          <button type="button" id="passwordToggle" class="button-input button-password-eye">
+            <i class="far fa-eye-slash"></i>
+          </button>
+        </div>
+        <small class="pass-info">*No debe estar vacío y contener de 6 a 25 caracteres, sin espacios.</small>
+      </label>
+      <div class="loader ocult"></div>
+      <button type="submit" class="button-signIn disabled" disabled>Ingresar</button>
+      <small class="wrong-user ocult">Datos ingresados incorrectos</small>
+
+    </form>
+    <div class="ingresarA">
+      <a href="signup.html">¿No tiene una cuenta? Regístrese aquí</a>
+    </div>
+  </div>
+
+</body>
+
+</html>

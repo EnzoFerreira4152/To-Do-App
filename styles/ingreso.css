@@ -1,0 +1,179 @@
+@import url('./common.css');
+
+body{
+  display: flex;
+}
+h1{
+  color: rgb(116, 116, 116);
+  font-weight: 300;
+  margin: .5em 0;
+}
+form{
+  position: relative;
+  max-width: 26em;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 2em auto;
+  padding: 1em 2.5em;
+  border-top-right-radius: 20px;
+}
+form:after{
+  position: absolute;
+  content: '';
+  width: .7em;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: linear-gradient(var(--bg-second-color),var(--bg-first-color));
+}
+input{
+  width: 100%;
+  height: 3em;
+  padding: .5em;
+  background-color: var(--app-grey);
+  border: 1.5px solid var(--app-grey);
+  border-radius: .2em;
+  margin: .3em 0;
+}
+input:focus{
+  outline: none;
+  border: 1.5px solid rgb(0, 161, 201);
+}
+label{
+  width: 100%;
+  font-weight: 400;
+  margin-top: 1.4em;
+  font-size: .85em;
+}
+.button-signIn, .button-signUp{
+  position: relative;
+  padding: .5em 3em;
+  background-color: var(--bg-first-color);
+  color: white;
+  margin: 2em 0 1em;
+  font-weight: 400;
+  font-size: 1em;
+  transition: all .4s;
+}
+.button-signIn:hover, .button-signUp:hover{
+  transform: translateY(-4px);
+  box-shadow: 0px 4px 5px rgba(100, 100, 100, .8);
+}
+.form-header{
+  color: grey;
+  font-size: 2em;
+}
+.ingresarA{
+  text-align: center;
+}
+.ingresarA a{
+  color: gainsboro;
+}
+.left{
+  width: 50%;  
+  background: linear-gradient(var(--bg-first-color), var(--bg-second-color));
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.left img{
+  width:60%;
+}
+.right{
+  width: 50%;
+  background-color: var(--bg-dark-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 0px 35px 2px black;
+}
+.pass-info{
+  font-size: .8em;
+  font-weight: 400;
+}
+.loader{
+  position: relative;
+  margin: 2em 0 1.35em;
+  width: 30px;
+  height: 30px;
+  padding: 2px;
+  border-radius: 15px;
+  animation: loaderAnimation 1.2s infinite;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                Password Eye                                */
+/* -------------------------------------------------------------------------- */
+.input-password{
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button-input{
+  background: none;
+  border: none;
+  outline: none;
+}
+.button-password-eye{
+  padding: 0;
+  position: absolute;
+  right: 25px;
+  cursor: pointer;
+  margin-top: 2px;
+}
+.far{
+  font-size: 15px;
+  color: rgb(124, 124, 124)
+}
+
+/* -------------------------------------------------------------------------- */
+/*                             Validaciones de JS                             */
+/* -------------------------------------------------------------------------- */
+.inputOK{
+  outline: 0 none;
+  border: 1.5px solid rgb(0, 175, 0);
+}
+.inputError{
+  outline: 0 none;
+  border: 1.5px solid red;
+}
+.disabled{
+  cursor: not-allowed;
+  opacity: .5;
+}
+.disabled:hover{
+  opacity: .4;
+  transform: none;
+  box-shadow: none;
+}
+.wrong-user{
+  color: red;
+}
+.ocult{
+  display: none;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  animación                                 */
+/* -------------------------------------------------------------------------- */
+
+@keyframes loaderAnimation {
+  0%{
+    transform: scale(1) translateY(-4px);
+    background-color: var(--bg-first-color);
+  }
+  50%{
+    transform: scale(1.2) translateY(0px);
+    background-color: var(--bg-second-color);
+  }
+  100%{
+    transform: scale(1) translateY(-4px);
+    background-color: var(--bg-first-color);
+  }
+}
