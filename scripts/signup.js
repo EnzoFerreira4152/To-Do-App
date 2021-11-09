@@ -1,17 +1,17 @@
 window.addEventListener('load', function (){
-    let appiUrl = 'https://ctd-todo-api.herokuapp.com/v1';
-    let form = document.querySelector('form');
-    let inputName = document.querySelector('#name');
-    let inputLastName = document.querySelector('#lastName');
-    let inputEmail = document.querySelector('#email');
-    let inputPassword = document.querySelector('#password');
-    let inputRepeatPass = document.querySelector('#repeatPass');
-    let buttonSubmit = document.querySelector('button');
+    const appiUrl = 'https://ctd-todo-api.herokuapp.com/v1';
+    const form = document.querySelector('form');
+    const inputName = document.querySelector('#name');
+    const inputLastName = document.querySelector('#lastName');
+    const inputEmail = document.querySelector('#email');
+    const inputPassword = document.querySelector('#inputPassword');
+    const inputRepeatPass = document.querySelector('#repeatPass');
+    const buttonSubmit = document.querySelector('button');
     const loader = document.querySelector('.loader');
 
     form.addEventListener('submit', function(e){
         e.preventDefault();
-        buttonLogin.classList.add('ocult');
+        buttonSubmit.classList.add('ocult');
         loader.classList.remove('ocult');
 
         setTimeout(()=>{
@@ -37,6 +37,9 @@ window.addEventListener('load', function (){
         }, 2500);
     });
 
+    /* -------------------------------------------------------------------------- */
+    /*                           validaciones de campos                           */
+    /* -------------------------------------------------------------------------- */
     form.addEventListener('change', function(){
         let resConfirm = notEmpty(inputName.value) && notEmpty(inputLastName.value) && notEmpty(inputEmail.value) && notEmpty(inputPassword.value) && notEmpty(inputRepeatPass.value);
         if(resConfirm){
@@ -68,5 +71,4 @@ window.addEventListener('load', function (){
             inputRepeatPass.classList.add('inputError');
         }
     });
-
 });

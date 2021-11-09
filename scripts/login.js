@@ -29,7 +29,6 @@ window.addEventListener('load', function(){
                 if(data.jwt){
                     localStorage.setItem('token', data.jwt)
                     if(location.origin == "https://enzoferreira4152.github.io"){
-                        console.log("Entró acá");
                         location.href = '/To-Do-App/mis-tareas.html';
                     }else{
                         location.href = '/mis-tareas.html';
@@ -48,7 +47,7 @@ window.addEventListener('load', function(){
                     }, 4000)
                 }
             });
-        }, 2500)
+        }, 2000)
     });
 
     passEyeToggle.addEventListener('click', () =>{
@@ -75,7 +74,7 @@ window.addEventListener('load', function(){
         }
     });
 
-    inputEmailLogin.addEventListener('blur', () =>{
+    inputEmailLogin.addEventListener('change', () =>{
         if(inputEmailLogin.value.includes('@')){
             inputEmailLogin.classList.remove('inputError');
             inputEmailLogin.classList.add('inputOK');
@@ -94,10 +93,4 @@ window.addEventListener('load', function(){
             inputPassword.classList.add('inputError');
         }
     });
-
-
-
-
-
-
 });

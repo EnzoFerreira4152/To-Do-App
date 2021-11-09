@@ -2,39 +2,33 @@ if(!localStorage.getItem('token')){
     location.replace('/');
 }
 window.addEventListener('load', () =>{
-    const apiUrl='https://ctd-todo-api.herokuapp.com/v1';
-    const myToken=localStorage.getItem('token');
-    const formTask=document.querySelector('.nueva-tarea');
-    const btnChangeNotDone=document.querySelectorAll('.not-done button');
-    const btnClose= document.querySelector('#closeApp');
+    const apiUrl = 'https://ctd-todo-api.herokuapp.com/v1';
+    const myToken = localStorage.getItem('token');
+    const formTaskInput = document.querySelector('.nueva-tarea');
+    const btnClose = document.querySelector('#closeApp');
+
 /* -------------------------------------------------------------------------- */
 /*                             Lógica App                                     */
 /* -------------------------------------------------------------------------- */
     getUserInfo(apiUrl, myToken);
-    getTasks(apiUrl, myToken);
-    formTask.addEventListener('submit', (event) =>{
+    getTasks(`${apiUrl}/tasks`, myToken);
+    formTaskInput.addEventListener('submit', (event) =>{
         event.preventDefault();
         createNewTask(apiUrl, myToken);
-        getTasks(apiUrl, myToken);
-        setInterval(() =>{
-            formTask.reset()
-        }, 500);
-    });
-    btnChangeNotDone.forEach(button =>{
-        button.addEventListener('click', () =>{
-            modifyTask(apiUrl, myToken, button.id)
-            getTasks(apiUrl, myToken);
-        });
+        setTimeout(() =>{
+            formTaskInput.reset()
+        }, 700);
     });
     btnClose.addEventListener('click', ()=>{
         logOut();
     })
+
 /* -------------------------------------------------------------------------- */
 /*                           funciones a usar                                 */
 /* -------------------------------------------------------------------------- */
     function getUserInfo(url, token){
-        const userName=document.querySelector('.user-info p');
-        const settings={
+        const userName = document.querySelector('.user-info p');
+        const settings = {
             method: 'GET',
             headers: {
                 'Authorization': token,
@@ -43,17 +37,17 @@ window.addEventListener('load', () =>{
         fetch(`${url}/users/getMe`, settings)
         .then(response => response.json())
         .then(data =>{
-            userName.innerText = `¡Hola, ${data.firstName}!`
+            userName.innerText = `¡Hola, ${data.lastName} ${data.firstName}!`
         });
     };
 
     function createNewTask(url, token){
-        let inputTask=document.querySelector('#nuevaTarea');
-        const payload={
+        let inputTask = document.querySelector('#nuevaTarea');
+        const payload = {
             description: inputTask.value,
             completed: false
         };
-        const settings={
+        const settings = {
             method: 'POST',
             headers: {
                 'Authorization': token,
@@ -64,37 +58,23 @@ window.addEventListener('load', () =>{
         fetch(`${url}/tasks`, settings)
         .then(response => response.json())
         .then(task =>{
-            console.log(task)
+            getTasks(`${apiUrl}/tasks`, myToken);
         })
     };
 
     function getTasks(url, token){
-        const settings={
+        const settings = {
             method: 'GET',
             headers: {
                 'Authorization': token,
             }
         };
-        fetch(`${url}/tasks`, settings)
+        fetch(url, settings)
         .then(response => response.json())
         .then(tasks =>{
             renderTasks(tasks)
         });
     };
-
-    function getOneTask(url, token, taskId){
-        const settings={
-            method: 'GET',
-            headers: {
-                'Authorization': token,
-            }
-        };
-        fetch(`${url}/tasks/${taskId}`, settings)
-        .then(response => response.json())
-        .then(task => {
-            return task;
-        });
-    }
 
     function changeTaskState() {
         const btnStateChange = document.querySelectorAll('.change');
@@ -102,7 +82,7 @@ window.addEventListener('load', () =>{
             //a cada boton le asignamos una funcionalidad
             button.addEventListener('click', function (event) {
             const id = event.target.id;
-            const url = `${apiUrl}/tasks/${id}`
+            const urlFetch = `${apiUrl}/tasks/${id}`
             const payload = {};
             //segun el tipo de boton que fue clickeado, cambiamos el estado de la tarea
             if (event.target.classList.contains('fa-undo-alt')) {
@@ -110,7 +90,7 @@ window.addEventListener('load', () =>{
             } else {
                 payload.completed = true;
             }
-            const settingsCambio = {
+            const settings = {
                 method: 'PUT',
                 headers: {
                 "Authorization": myToken,
@@ -118,17 +98,16 @@ window.addEventListener('load', () =>{
                 },
                 body: JSON.stringify(payload)
             }
-            fetch(url, settingsCambio)
+            fetch(urlFetch, settings)
                 .then(response => {
-                console.log(response.status);
-                getTasks(`${apiUrl}/tasks`, myToken);
+                    getTasks(`${apiUrl}/tasks`, myToken);
                 });
             });
         });
     }
 
     function deleteTask() {
-        const btnDelete=document.querySelectorAll('.tarea button:nth-child(2)');
+        const btnDelete = document.querySelectorAll('.fa-trash-alt');
         btnDelete.forEach(button => {
             button.addEventListener('click', event => {
                 const id = event.target.id;
@@ -148,8 +127,8 @@ window.addEventListener('load', () =>{
     }
 
     function modifyTask(url, token, taskId){
-        const payload=JSON.parse(getOneTask(url, token, taskId));
-        const settings={
+        const payload = JSON.parse(getOneTask(url, token, taskId));
+        const settings = {
             method: 'PUT',
             headers: {
                 'Authorization': token,
@@ -164,14 +143,15 @@ window.addEventListener('load', () =>{
         });
     };
 
-    function renderTasks(arrayTasks){
-        const boxFinishedTasks=document.querySelector('.tareas-terminadas');
-        const boxUnfinishedTasks=document.querySelector('.tareas-pendientes');
-        const skeleton=document.querySelector('#skeleton')
-        skeleton.innerHTML="";
-        arrayTasks.forEach(task => {
+    function renderTasks(array){
+        const containerFinishedTasks = document.querySelector('.tareas-terminadas');
+        const containerUnfinishedTasks = document.querySelector('.tareas-pendientes');
+        containerFinishedTasks.innerHTML = "";
+        containerUnfinishedTasks.innerHTML = "";
+        
+        array.forEach(task => {
             if(task.completed){
-                boxFinishedTasks.innerHTML+=`
+                containerFinishedTasks.innerHTML+=`
                     <li class="tarea">
                         <div class="done"></div>
                         <div class="descripcion">
@@ -183,10 +163,9 @@ window.addEventListener('load', () =>{
                         </div>
                     </li>`
             }else{
-                boxUnfinishedTasks.innerHTML+=`
+                containerUnfinishedTasks.innerHTML+=`
                 <li class="tarea">
                     <div class="not-done change" id="${task.id}">
-                    <button></button>
                     </div>
                     <div class="descripcion">
                         <p class="nombre">${task.description}</p>
@@ -207,12 +186,4 @@ window.addEventListener('load', () =>{
         }
         localStorage.clear();
     };
-
-
-
-
-
-
-
-
 });
